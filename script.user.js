@@ -12,6 +12,7 @@
     let speeds;
     let speed = 2;
     let selected = false;
+    // 分P切换检测函数
     async function registerVideoChangeHandler() {
         const observer = new MutationObserver(e => {
             if (e[0].target.src) {
@@ -21,15 +22,18 @@
         });
         observer.observe(document.querySelector('.bilibili-player-video video'), {attributes:true});
     }
+    // 初始化
     let timer = setInterval(()=>{
         speeds = document.querySelectorAll("li.bilibili-player-video-btn-speed-menu-list");
         if(speeds.length != 0){
             clearInterval(timer);
+            // 默认恢复到1.0x
             speeds[3].click();
             init();
             registerVideoChangeHandler();
         }
     },200)
+    // 更改自定义速度的标签名称
     let speedLabelSetter = ()=>{
         speeds[0].dataset.value = speed;
         speeds[0].innerText = speed + 'x(自定义)';
@@ -37,9 +41,11 @@
     const init = ()=>{
         speeds[0].addEventListener('click',(e)=>{
             if(!selected){
+                // 如果没有被选中，则被正常选中
                 selected = true;
                 speedLabelSetter();
             }else{
+                // 如果已经被选中，则弹出提示框
                 let input = prompt("播放速度：（请输入[0.1,10]之内的数字）");
                 if(input == null){
                     e.stopPropagation();
@@ -56,6 +62,7 @@
                 speedLabelSetter();
             }
         },true);
+        // 切换其他速度时，取消选中状态
         for(let i = 1; i < speeds.length; i++){
             speeds[i].addEventListener('click',()=>{
                 selected = false;
