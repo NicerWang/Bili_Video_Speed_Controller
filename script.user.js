@@ -1,10 +1,11 @@
 // ==UserScript==
-// @name         Bili_Video_Speed_Controller
+// @name         BiliBili视频速度控制
 // @namespace    https://github.com/NicerWang
-// @version      0.1
-// @description  自定义Bilibili视频播放速度（新版播放器）
+// @version      0.2
+// @description  自定义Bilibili视频播放速度（仅新版播放器）
 // @author       NicerWang
 // @match        https://www.bilibili.com/video/*
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=bilibili.com
 // ==/UserScript==
 
 (function() {
