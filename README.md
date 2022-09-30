@@ -1,5 +1,7 @@
 # Bili_Video_Speed_Controller
 
+> 2022/09-已适配最新播放器
+
 适用于Bilibili新版网页播放器的速度控制插件
 
 * 安装方法：（需要脚本管理软件，如`tampermonkey`等）

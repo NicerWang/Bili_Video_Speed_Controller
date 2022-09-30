@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BiliBili视频速度控制
 // @namespace    https://github.com/NicerWang
-// @version      0.2
+// @version      0.3
 // @description  自定义Bilibili视频播放速度（仅新版播放器）
 // @author       NicerWang
 // @match        https://www.bilibili.com/video/*
@@ -17,15 +17,15 @@
     async function registerVideoChangeHandler() {
         const observer = new MutationObserver(e => {
             if (e[0].target.src) {
-                speeds = document.querySelectorAll("li.bilibili-player-video-btn-speed-menu-list");
+                speeds = document.querySelectorAll("li.bpx-player-ctrl-playbackrate-menu-item");
                 init();
             }
         });
-        observer.observe(document.querySelector('.bilibili-player-video video'), {attributes:true});
+        observer.observe(document.querySelector('#bilibili-player video'), {attributes:true});
     }
     // 初始化
     let timer = setInterval(()=>{
-        speeds = document.querySelectorAll("li.bilibili-player-video-btn-speed-menu-list");
+        speeds = document.querySelectorAll("li.bpx-player-ctrl-playbackrate-menu-item");
         if(speeds.length != 0){
             clearInterval(timer);
             // 默认恢复到1.0x
@@ -38,6 +38,9 @@
     let speedLabelSetter = ()=>{
         speeds[0].dataset.value = speed;
         speeds[0].innerText = speed + 'x(自定义)';
+        speeds[0].style.wordBreak = 'keep-all';
+        speeds[0].style.overflow = 'hidden';
+        speeds[0].style.textOverflow = 'ellipsis';
     }
     const init = ()=>{
         speeds[0].addEventListener('click',(e)=>{
@@ -47,14 +50,14 @@
                 speedLabelSetter();
             }else{
                 // 如果已经被选中，则弹出提示框
-                let input = prompt("播放速度：（请输入[0.1,10]之内的数字）");
+                let input = prompt("播放速度：（请输入[0.25,10]之内的数字）");
                 if(input == null){
                     e.stopPropagation();
                     return;
                 }
                 input = Number(input);
-                if( isNaN(input) || input < 0.1 || input > 10 ){
-                    alert("请输入[0.1,10]之内的数字，速度已置为1.0x");
+                if( isNaN(input) || input < 0.25 || input > 10 ){
+                    alert("请输入[0.25,10]之内的数字，速度已重置为1.0x");
                     speed = 1;
                 }
                 else{
