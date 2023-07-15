@@ -50,15 +50,14 @@
                 speedLabelSetter();
             }else{
                 // 如果已经被选中，则弹出提示框
-                let input = prompt("播放速度：（请输入[0.25,10]之内的数字）");
+                let input = prompt("播放速度：（请输入[0.25,4.00]之内的数字）");
                 if(input == null){
                     e.stopPropagation();
                     return;
                 }
                 input = Number(input);
-                if( isNaN(input) || input < 0.25 || input > 10 ){
-                    alert("请输入[0.25,10]之内的数字，速度已重置为1.0x");
-                    speed = 1;
+                if( isNaN(input) || input < 0.25 || input > 4 ){
+                    alert("数字超出范围");
                 }
                 else{
                     speed = input;
